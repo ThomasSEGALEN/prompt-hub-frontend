@@ -14,4 +14,27 @@ export class PromptService {
   getPrompts(): Observable<Prompt[]> {
     return this.httpsClient.get<Prompt[]>(this.baseUrl)
   }
+
+  getPrompt(promptId: number): Observable<Prompt> {
+    return this.httpsClient.get<Prompt>(`${this.baseUrl}/${promptId}`)
+  }
+
+  createPrompt(prompt: { title: string; content: string; categoryId: number }): Observable<Prompt> {
+    return this.httpsClient.post<Prompt>(this.baseUrl, prompt)
+  }
+
+  updatePrompt(
+    promptId: number,
+    prompt: {
+      title: string
+      content: string
+      categoryId: number
+    },
+  ): Observable<Prompt> {
+    return this.httpsClient.put<Prompt>(`${this.baseUrl}/${promptId}`, prompt)
+  }
+
+  deletePrompt(promptId: number): Observable<void> {
+    return this.httpsClient.delete<void>(`${this.baseUrl}/${promptId}`)
+  }
 }

@@ -1,4 +1,5 @@
 import { Component, input, InputSignal } from '@angular/core'
+import { RouterLink } from '@angular/router'
 import { ButtonModule } from 'primeng/button'
 import { CardModule } from 'primeng/card'
 import { TagModule } from 'primeng/tag'
@@ -7,7 +8,7 @@ import { Prompt } from '../prompt.model'
 
 @Component({
   selector: 'app-prompt-card',
-  imports: [ButtonModule, CardModule, TagModule, TextareaModule],
+  imports: [ButtonModule, CardModule, RouterLink, TagModule, TextareaModule],
   templateUrl: './prompt-card.html',
   styleUrl: './prompt-card.scss',
 })
