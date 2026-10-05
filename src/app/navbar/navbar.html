@@ -4,7 +4,13 @@
       <img src="/logo-prompt-hub.png" alt="Prompt Hub Logo" width="36" height="36" />
       Prompt Hub
     </a>
-    <div class="flex gap-2">
+    <div class="flex gap-2 align-items-center">
+      @if (authService.currentUser(); as currentUser) {
+        <span class="text-small text-color-secondary">{{ currentUser.username }}</span>
+        <p-button routerLink="/auth" severity="secondary" label="Logout" size="small" (onClick)="logout()" />
+      } @else {
+        <p-button routerLink="/auth" severity="secondary" label="Login" size="small" />
+      }
       <p-button severity="secondary" [icon]="isDark() ? 'pi pi-sun' : 'pi pi-moon'" size="small" (onClick)="toggleDarkMode()" />
       <p-button routerLink="/prompts/create" label="Add" icon="pi pi-plus" size="small" />
     </div>

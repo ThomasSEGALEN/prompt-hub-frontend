@@ -1,0 +1,18 @@
+<p-card [header]="mode() ==='login' ? 'Login' : 'Register'">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="field">
+      <label for="username">Username</label>
+      <input formControlName="username" pInputText id="username" type="text" class="w-full" autocomplete="username" />
+      <small class="invalid-feedback">Username is required.</small>
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <p-password formControlName="password" inputId="password" class="w-full" inputStyleClass="w-full" autocomplete="current-password" />
+      <small class="invalid-feedback">Password is required and must be at least 4 characters long.</small>
+    </div>
+    <div class="flex gap-2 justify-content-end">
+      <p-button severity="secondary" [label]="mode() === 'login' ? 'Register' : 'Login'" (onClick)="toggleMode()" />
+      <p-button [label]="mode() === 'login' ? 'Login' : 'Register'" type="submit" />
+    </div>
+  </form>
+</p-card>

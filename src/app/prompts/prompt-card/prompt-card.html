@@ -5,7 +5,9 @@
         <div class="text-sm text-color-secondary">@{{ prompt().author.username}}</div>
       </div>
       <div class="flex gap-2">
+        @if (canEdit()) {
         <p-button [routerLink]="['/prompts', prompt().id, 'update']" icon="pi pi-pencil" size="small" [text]="true" />
+        }
         <p-button icon="pi pi-copy" size="small" [text]="true" (onClick)="copyToClipboard()" />
       </div>
     </div>
