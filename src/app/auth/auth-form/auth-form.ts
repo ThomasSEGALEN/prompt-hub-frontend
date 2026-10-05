@@ -1,6 +1,7 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
+import { MessageService } from 'primeng/api'
 import { Button } from 'primeng/button'
 import { Card } from 'primeng/card'
 import { InputTextModule } from 'primeng/inputtext'
@@ -14,9 +15,12 @@ import { AuthService } from '../auth-service'
   styleUrl: './auth-form.scss',
 })
 export class AuthForm {
+  messageService: MessageService = inject(MessageService)
   router: Router = inject(Router)
   authService: AuthService = inject(AuthService)
+
   mode: WritableSignal<'login' | 'register'> = signal<'login' | 'register'>('login')
+  submitting: WritableSignal<boolean> = signal(false)
 
   form = new FormGroup({
     username: new FormControl('', {
@@ -38,19 +42,38 @@ export class AuthForm {
     if (this.form.invalid) return
 
     const { username, password } = this.form.getRawValue()
+    this.submitting.set(true)
 
     if (this.mode() === 'login') {
       this.login(username, password)
+      this.submitting.set(false)
     } else {
       this.register(username, password)
+      this.submitting.set(false)
     }
   }
 
   login(username: string, password: string): void {
-    this.authService.login(username, password).subscribe(() => this.router.navigate(['/']))
+    this.authService.login(username, password).subscribe({
+      next: () => this.router.navigate(['/']),
+      error: () =>
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Login failed',
+        }),
+    })
   }
 
   register(username: string, password: string): void {
-    this.authService.register(username, password).subscribe(() => this.router.navigate(['/']))
+    this.authService.register(username, password).subscribe({
+      next: () => this.router.navigate(['/']),
+      error: () =>
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Register failed',
+        }),
+    })
   }
 }

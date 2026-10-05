@@ -7,11 +7,11 @@
     <div class="flex gap-2 align-items-center">
       @if (authService.currentUser(); as currentUser) {
         <span class="text-small text-color-secondary">{{ currentUser.username }}</span>
-        <p-button routerLink="/auth" severity="secondary" label="Logout" size="small" (onClick)="logout()" />
+        <p-button [loading]="loggingOut()" routerLink="/auth" severity="secondary" label="Logout" size="small" (onClick)="logout()" />
       } @else {
         <p-button routerLink="/auth" severity="secondary" label="Login" size="small" />
       }
-      <p-button severity="secondary" [icon]="isDark() ? 'pi pi-sun' : 'pi pi-moon'" size="small" (onClick)="toggleDarkMode()" />
+      <p-button severity="secondary" [icon]="isDark() ? 'pi pi-sun' : 'pi pi-moon'" size="small" (onClick)="isDark.update((value) => !value)" />
       <p-button routerLink="/prompts/create" label="Add" icon="pi pi-plus" size="small" />
     </div>
   </div>

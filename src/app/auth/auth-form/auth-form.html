@@ -12,7 +12,7 @@
     </div>
     <div class="flex gap-2 justify-content-end">
       <p-button severity="secondary" [label]="mode() === 'login' ? 'Register' : 'Login'" (onClick)="toggleMode()" />
-      <p-button [label]="mode() === 'login' ? 'Login' : 'Register'" type="submit" />
+      <p-button [loading]="submitting()" [label]="mode() === 'login' ? 'Login' : 'Register'" type="submit" />
     </div>
   </form>
 </p-card>

@@ -37,4 +37,12 @@ export class PromptService {
   deletePrompt(promptId: number): Observable<void> {
     return this.httpsClient.delete<void>(`${this.baseUrl}/${promptId}`)
   }
+
+  upvotePrompt(promptId: number): Observable<Prompt> {
+    return this.httpsClient.post<Prompt>(`${this.baseUrl}/${promptId}/upvote`, null)
+  }
+
+  downvotePrompt(promptId: number): Observable<Prompt> {
+    return this.httpsClient.post<Prompt>(`${this.baseUrl}/${promptId}/downvote`, null)
+  }
 }
